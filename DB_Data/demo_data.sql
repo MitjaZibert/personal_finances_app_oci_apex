@@ -1,26 +1,3 @@
-
-TRUNCATE TABLE pf_app_variables;
-TRUNCATE TABLE pf_user_groups;
-TRUNCATE TABLE pf_users;
-
-INSERT INTO pf_user_groups (user_group_id, user_group_name) VALUES (1, 'Development Group');
-INSERT INTO pf_user_groups (user_group_id, user_group_name) VALUES (2, 'MZ-Iva Group');
-INSERT INTO pf_user_groups (user_group_id, user_group_name) VALUES (3, 'Demo Group');
-
-
-INSERT INTO pf_app_variables (user_group_id, currency_check_sum, pre_app_money_sum) VALUES (1, 0, 0);
-INSERT INTO pf_app_variables (user_group_id, currency_check_sum, pre_app_money_sum) VALUES (2, 0, 0);
-INSERT INTO pf_app_variables (user_group_id, currency_check_sum, pre_app_money_sum) VALUES (3, 0, 0);
-
-
-INSERT INTO pf_users (user_group_id, user_name) VALUES (1, 'MZ');
-INSERT INTO pf_users (user_group_id, user_name) VALUES (2, 'MZ');
-INSERT INTO pf_users (user_group_id, user_name) VALUES (3, 'MZ');
-INSERT INTO pf_users (user_group_id, user_name) VALUES (2, 'Ivana');
-INSERT INTO pf_users (user_group_id, user_name) VALUES (3, 'PF_Demo');
-
-
-
 TRUNCATE TABLE pf_incomes;
 TRUNCATE TABLE pf_expenses;
 TRUNCATE TABLE pf_monthly_sum;
@@ -41,6 +18,32 @@ ALTER TABLE pf_incomes MODIFY income_id GENERATED ALWAYS AS IDENTITY (START WITH
 ALTER TABLE pf_expenses MODIFY expense_id GENERATED ALWAYS AS IDENTITY (START WITH LIMIT VALUE);
 ALTER TABLE pf_money_allocation MODIFY allocation_id GENERATED ALWAYS AS IDENTITY (START WITH LIMIT VALUE);
 ALTER TABLE pf_money_correction MODIFY money_correction_id GENERATED ALWAYS AS IDENTITY (START WITH LIMIT VALUE);
+
+
+TRUNCATE TABLE pf_app_variables;
+TRUNCATE TABLE pf_user_groups;
+TRUNCATE TABLE pf_users;
+
+-- pf_user_groups
+INSERT INTO pf_user_groups (user_group_id, user_group_name) VALUES (1, 'Development Group');
+INSERT INTO pf_user_groups (user_group_id, user_group_name) VALUES (2, 'MZ-Iva Group');
+INSERT INTO pf_user_groups (user_group_id, user_group_name) VALUES (3, 'Demo Group');
+
+-- pf_app_variables
+INSERT INTO pf_app_variables (user_group_id, currency_check_sum, pre_app_money_sum) VALUES (1, 0, 0);
+INSERT INTO pf_app_variables (user_group_id, currency_check_sum, pre_app_money_sum) VALUES (2, 0, 0);
+INSERT INTO pf_app_variables (user_group_id, currency_check_sum, pre_app_money_sum) VALUES (3, 0, 0);
+
+-- pf_users
+INSERT INTO pf_users (user_group_id, user_name) VALUES (1, 'MZ');
+INSERT INTO pf_users (user_group_id, user_name) VALUES (2, 'MZ');
+INSERT INTO pf_users (user_group_id, user_name) VALUES (3, 'MZ');
+INSERT INTO pf_users (user_group_id, user_name) VALUES (2, 'Ivana');
+INSERT INTO pf_users (user_group_id, user_name) VALUES (3, 'PF_Demo');
+
+
+-- =================================================================================================
+-- =================================================================================================
 
 -- pf_currencies
 INSERT INTO pf_currencies (user_group_id, currency_code, currency_name, currency_rate, rate_date) VALUES (1, 'EUR', 'Euro', 1, SYSDATE);
@@ -78,6 +81,10 @@ INSERT INTO pf_regular_expenses (user_group_id, expense_category_id, regular_exp
 
 -- pf_regular_incomes
 INSERT INTO pf_regular_incomes (user_group_id, income_category_id, regular_income_name, amount, months, regular_income_notes) VALUES (1, 1, 'Job salary', 2350, NULL, 'Monthly salary');
+
+
+-- =================================================================================================
+-- =================================================================================================
 
 -- pf_monthly_sum
 
@@ -128,16 +135,16 @@ INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, incom
 INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 13, 1, 'Monthly salary', 2350, 0, 2350, 1, FALSE);
 INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 14, 1, 'Monthly salary', 2350, 0, 2350, 1, FALSE);
 INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, incomes_notes) VALUES (1, 14, 2, 'Consulting', 320, 0, 320, 'Freelance client 3');
-INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 15, 1, 'Monthly salary', 2350, 0, 2350, 1, TRUE);
-INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 16, 1, 'Monthly salary', 2350, 0, 2350, 1, TRUE);
-INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 17, 1, 'Monthly salary', 2350, 0, 2350, 1, TRUE);
-INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 18, 1, 'Monthly salary', 2350, 0, 2350, 1, TRUE);
-INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 19, 1, 'Monthly salary', 2350, 0, 2350, 1, TRUE);
-INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 20, 1, 'Monthly salary', 2350, 0, 2350, 1, TRUE);
-INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 21, 1, 'Monthly salary', 2350, 0, 2350, 1, TRUE);
-INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 22, 1, 'Monthly salary', 2350, 0, 2350, 1, TRUE);
-INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 23, 1, 'Monthly salary', 2350, 0, 2350, 1, TRUE);
-INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 24, 1, 'Monthly salary', 2350, 0, 2350, 1, TRUE);
+INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 15, 1, 'Monthly salary', 2350, 2350, 0, 1, TRUE);
+INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 16, 1, 'Monthly salary', 2350, 2350, 0, 1, TRUE);
+INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 17, 1, 'Monthly salary', 2350, 2350, 0, 1, TRUE);
+INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 18, 1, 'Monthly salary', 2350, 2350, 0, 1, TRUE);
+INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 19, 1, 'Monthly salary', 2350, 2350, 0, 1, TRUE);
+INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 20, 1, 'Monthly salary', 2350, 2350, 0, 1, TRUE);
+INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 21, 1, 'Monthly salary', 2350, 2350, 0, 1, TRUE);
+INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 22, 1, 'Monthly salary', 2350, 2350, 0, 1, TRUE);
+INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 23, 1, 'Monthly salary', 2350, 2350, 0, 1, TRUE);
+INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, 24, 1, 'Monthly salary', 2350, 2350, 0, 1, TRUE);
 
 
 -- pf_expenses
@@ -224,55 +231,89 @@ INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, exp
 INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 14, 4, 'Car fuel', 65, 0, 65, 5, FALSE);
 INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 14, 5, 'Restaurants', 45, 0, 45, 7, FALSE);
 INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid) VALUES (1, 14, 7, 'Business tax', 80, 0, 80);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 15, 1, 'Food and stuff', 350, 0, 350, 1, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 15, 2, 'House expenses', 120, 0, 120, 2, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 15, 7, 'Business payments', 58, 0, 58, 4, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 15, 4, 'Car fuel', 65, 0, 65, 5, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 15, 5, 'Restaurants', 50, 0, 50, 7, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 16, 1, 'Food and stuff', 350, 0, 350, 1, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 16, 2, 'House expenses', 120, 0, 120, 2, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 16, 7, 'Business payments', 58, 0, 58, 4, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 16, 4, 'Car fuel', 65, 0, 65, 5, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 16, 5, 'Restaurants', 50, 0, 50, 7, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 17, 1, 'Food and stuff', 350, 0, 350, 1, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 17, 2, 'House expenses', 120, 0, 120, 2, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 17, 7, 'Business payments', 58, 0, 58, 4, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 17, 4, 'Car fuel', 65, 0, 65, 5, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 17, 5, 'Restaurants', 50, 0, 50, 7, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 18, 1, 'Food and stuff', 350, 0, 350, 1, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 18, 2, 'House expenses', 120, 0, 120, 2, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 18, 7, 'Business payments', 58, 0, 58, 4, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 18, 4, 'Car fuel', 65, 0, 65, 5, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 18, 5, 'Restaurants', 50, 0, 50, 7, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 19, 1, 'Food and stuff', 350, 0, 350, 1, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 19, 2, 'House expenses', 120, 0, 120, 2, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 19, 7, 'Business payments', 58, 0, 58, 4, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 19, 4, 'Car fuel', 65, 0, 65, 5, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 19, 5, 'Restaurants', 50, 0, 50, 7, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 20, 1, 'Food and stuff', 350, 0, 350, 1, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 20, 2, 'House expenses', 120, 0, 120, 2, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 20, 7, 'Business payments', 58, 0, 58, 4, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 20, 4, 'Car fuel', 65, 0, 65, 5, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 20, 5, 'Restaurants', 50, 0, 50, 7, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 21, 1, 'Food and stuff', 350, 0, 350, 1, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 21, 2, 'House expenses', 120, 0, 120, 2, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 21, 7, 'Business payments', 58, 0, 58, 4, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 21, 4, 'Car fuel', 65, 0, 65, 5, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 21, 5, 'Restaurants', 50, 0, 50, 7, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 22, 1, 'Food and stuff', 350, 0, 350, 1, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 22, 2, 'House expenses', 120, 0, 120, 2, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 22, 7, 'Business payments', 58, 0, 58, 4, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 22, 4, 'Car fuel', 65, 0, 65, 5, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 22, 5, 'Restaurants', 50, 0, 50, 7, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 23, 1, 'Food and stuff', 350, 0, 350, 1, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 23, 2, 'House expenses', 120, 0, 120, 2, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 23, 7, 'Business payments', 58, 0, 58, 4, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 23, 4, 'Car fuel', 65, 0, 65, 5, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 23, 5, 'Restaurants', 50, 0, 50, 7, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 24, 1, 'Food and stuff', 350, 0, 350, 1, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 24, 2, 'House expenses', 120, 0, 120, 2, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 24, 7, 'Business payments', 58, 0, 58, 4, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 24, 4, 'Car fuel', 65, 0, 65, 5, TRUE);
-INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 24, 5, 'Restaurants', 50, 0, 50, 7, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 15, 1, 'Food and stuff', 350, 350, 0, 1, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 15, 2, 'House expenses', 120, 120, 0, 2, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 15, 7, 'Business payments', 58, 58, 0, 4, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 15, 4, 'Car fuel', 65, 65, 0, 5, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 15, 5, 'Restaurants', 50, 50, 0, 7, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 16, 1, 'Food and stuff', 350, 350, 0, 1, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 16, 2, 'House expenses', 120, 120, 0, 2, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 16, 7, 'Business payments', 58, 58, 0, 4, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 16, 4, 'Car fuel', 65, 65, 0, 5, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 16, 5, 'Restaurants', 50, 50, 0, 7, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 17, 1, 'Food and stuff', 350, 350, 0, 1, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 17, 2, 'House expenses', 120, 120, 0, 2, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 17, 7, 'Business payments', 58, 58, 0, 4, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 17, 4, 'Car fuel', 65, 65, 0, 5, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 17, 5, 'Restaurants', 50, 50, 0, 7, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 18, 1, 'Food and stuff', 350, 350, 0, 1, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 18, 2, 'House expenses', 120, 120, 0, 2, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 18, 7, 'Business payments', 58, 58, 0, 4, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 18, 4, 'Car fuel', 65, 65, 0, 5, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 18, 5, 'Restaurants', 50, 50, 0, 7, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 19, 1, 'Food and stuff', 350, 350, 0, 1, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 19, 2, 'House expenses', 120, 120, 0, 2, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 19, 7, 'Business payments', 58, 58, 0, 4, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 19, 4, 'Car fuel', 65, 65, 0, 5, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 19, 5, 'Restaurants', 50, 50, 0, 7, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 20, 1, 'Food and stuff', 350, 350, 0, 1, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 20, 2, 'House expenses', 120, 120, 0, 2, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 20, 7, 'Business payments', 58, 58, 0, 4, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 20, 4, 'Car fuel', 65, 65, 0, 5, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 20, 5, 'Restaurants', 50, 50, 0, 7, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 21, 1, 'Food and stuff', 350, 350, 0, 1, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 21, 2, 'House expenses', 120, 120, 0, 2, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 21, 7, 'Business payments', 58, 58, 0, 4, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 21, 4, 'Car fuel', 65, 65, 0, 5, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 21, 5, 'Restaurants', 50, 50, 0, 7, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 22, 1, 'Food and stuff', 350, 350, 0, 1, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 22, 2, 'House expenses', 120, 120, 0, 2, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 22, 7, 'Business payments', 58, 58, 0, 4, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 22, 4, 'Car fuel', 65, 65, 0, 5, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 22, 5, 'Restaurants', 50, 50, 0, 7, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 23, 1, 'Food and stuff', 350, 350, 0, 1, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 23, 2, 'House expenses', 120, 120, 0, 2, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 23, 7, 'Business payments', 58, 58, 0, 4, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 23, 4, 'Car fuel', 65, 65, 0, 5, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 23, 5, 'Restaurants', 50, 50, 0, 7, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 24, 1, 'Food and stuff', 350, 350, 0, 1, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 24, 2, 'House expenses', 120, 120, 0, 2, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 24, 7, 'Business payments', 58, 58, 0, 4, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 24, 4, 'Car fuel', 65, 65, 0, 5, TRUE);
+INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, 24, 5, 'Restaurants', 50, 50, 0, 7, TRUE);
+
+
+UPDATE pf_monthly_sum ms
+SET (ms.incomes_all, ms.incomes_received) = 
+    (SELECT SUM(i.amount_all), SUM(i.amount_received) 
+    FROM pf_incomes i
+    WHERE i.user_group_id = ms.user_group_id AND i.monthly_sum_id = ms.monthly_sum_id)
+WHERE user_group_id = 1
+AND month_closed = true;
+
+UPDATE pf_monthly_sum ms
+SET (ms.incomes_all, ms.incomes_open) = 
+    (SELECT SUM(i.amount_all), SUM(i.amount_open) 
+    FROM pf_incomes i
+    WHERE i.user_group_id = ms.user_group_id AND i.monthly_sum_id = ms.monthly_sum_id)
+WHERE user_group_id = 1
+AND month_closed = false;
+
+UPDATE pf_monthly_sum ms
+SET (ms.expenses_all, ms.expenses_paid) = 
+    (SELECT SUM(e.amount_all), SUM(e.amount_paid) 
+    FROM pf_expenses e
+    WHERE e.user_group_id = ms.user_group_id AND e.monthly_sum_id = ms.monthly_sum_id)
+WHERE user_group_id = 1
+AND month_closed = true;
+
+UPDATE pf_monthly_sum ms
+SET (ms.expenses_all, ms.expenses_open) = 
+    (SELECT SUM(e.amount_all), SUM(e.amount_open) 
+    FROM pf_expenses e
+    WHERE e.user_group_id = ms.user_group_id AND e.monthly_sum_id = ms.monthly_sum_id)
+WHERE user_group_id = 1
+AND month_closed = false;
+
 
 COMMIT;

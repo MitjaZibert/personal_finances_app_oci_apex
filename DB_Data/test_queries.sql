@@ -32,3 +32,24 @@ WHERE SYS_CONTEXT('pf_users_context', 'user_group_id') IS NOT NULL;
 
     --apex_util.set_session_state('P0_USER_NUMBER_OF_GROUPS', 1);
     --apex_util.set_session_state('APP_USER_GROUP_ID', l_user_groups_no);
+
+
+select sum(amount_all), sum(amount_open) + sum(amount_received), sum(amount_open), sum(amount_received)
+from PF_INCOMES;
+
+
+select sum(amount_all), sum(amount_open) + sum(amount_paid), sum(amount_open), sum(amount_paid)
+from PF_EXPENSES;
+
+
+select sum(incomes_all), sum(incomes_open), sum(incomes_received), sum(expenses_all), sum(expenses_open), sum(expenses_paid)
+from pf_monthly_sum;
+
+
+
+select
+    rownum  as value,
+    'label' as label
+from
+    dual
+connect by level <= 12;

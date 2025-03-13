@@ -36,7 +36,7 @@ for i in range(13, 15):
     
 
 for i in range(15, 25):
-    print("INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, " +  str(i) + ", 1, 'Monthly salary', 2350, 0, 2350, 1, TRUE);")
+    print("INSERT INTO pf_incomes (user_group_id, monthly_sum_id, income_category_id, income, amount_all, amount_open, amount_received, regular_income_id, update_regular_income) VALUES (1, " +  str(i) + ", 1, 'Monthly salary', 2350, 2350, 0, 1, TRUE);")
 
 
 print ("")
@@ -81,17 +81,17 @@ for i in range(1, 15):
 
 
 for i in range(15, 25):
-    print("INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, " +  str(i) + ", 1, 'Food and stuff', 350, 0, 350, 1, TRUE);")
-    print("INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, " +  str(i) + ", 2, 'House expenses', 120, 0, 120, 2, TRUE);")
-    print("INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, " +  str(i) + ", 7, 'Business payments', 58, 0, 58, 4, TRUE);")
-    print("INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, " +  str(i) + ", 4, 'Car fuel', 65, 0, 65, 5, TRUE);")
-    print("INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, " +  str(i) + ", 5, 'Restaurants', 50, 0, 50, 7, TRUE);")
+    print("INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, " +  str(i) + ", 1, 'Food and stuff', 350, 350, 0, 1, TRUE);")
+    print("INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, " +  str(i) + ", 2, 'House expenses', 120, 120, 0, 2, TRUE);")
+    print("INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, " +  str(i) + ", 7, 'Business payments', 58, 58, 0, 4, TRUE);")
+    print("INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, " +  str(i) + ", 4, 'Car fuel', 65, 65, 0, 5, TRUE);")
+    print("INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, " +  str(i) + ", 5, 'Restaurants', 50, 50, 0, 7, TRUE);")
 
     
     if i == 8:
-        print("INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, " +  str(i) + ", 4, 'Car insurance', 365, 0, 365, 6, TRUE);")
-        print("INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, " +  str(i) + ", 4, 'Car maintenance', 125, 0, 125, 6, TRUE);")
+        print("INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, " +  str(i) + ", 4, 'Car insurance', 365, 365, 0, 6, TRUE);")
+        print("INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, " +  str(i) + ", 4, 'Car maintenance', 125, 125, 0, 6, TRUE);")
 
     if i in (10, 11, 12):
-        print("INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, " +  str(i) + ", 3, 'Business tax', 200, 0, 200, 3, TRUE);")
+        print("INSERT INTO pf_expenses (user_group_id, monthly_sum_id, expense_category_id, expense, amount_all, amount_open, amount_paid, regular_expense_id, update_regular_expense) VALUES (1, " +  str(i) + ", 3, 'Business tax', 200, 200, 0, 3, TRUE);")
     
