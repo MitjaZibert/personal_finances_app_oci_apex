@@ -20,36 +20,48 @@ END;*/
 --apex.navigation.redirect("f?p=&APP_ID.:2:&APP_SESSION.");
 
 
-SELECT pf_users_pkg.get_user_group_id('PF_Demo') FROM DUAL;
+--SELECT pf_users_pkg.get_user_group_id('PF_Demo') FROM DUAL;
 
 
-SELECT 1 
-FROM dual
-WHERE SYS_CONTEXT('pf_users_context', 'user_group_id') IS NOT NULL;
+--SELECT 1 FROM dual WHERE SYS_CONTEXT('pf_users_context', 'user_group_id') IS NULL;
 
 
 
 
-    --apex_util.set_session_state('P0_USER_NUMBER_OF_GROUPS', 1);
-    --apex_util.set_session_state('APP_USER_GROUP_ID', l_user_groups_no);
-
-
-select sum(amount_all), sum(amount_open) + sum(amount_received), sum(amount_open), sum(amount_received)
-from PF_INCOMES;
-
-
-select sum(amount_all), sum(amount_open) + sum(amount_paid), sum(amount_open), sum(amount_paid)
-from PF_EXPENSES;
-
-
-select sum(incomes_all), sum(incomes_open), sum(incomes_received), sum(expenses_all), sum(expenses_open), sum(expenses_paid)
-from pf_monthly_sum;
+--apex_util.set_session_state('P0_USER_NUMBER_OF_GROUPS', 1);
+--apex_util.set_session_state('APP_USER_GROUP_ID', l_user_groups_no);
 
 
 
-select
-    rownum  as value,
-    'label' as label
-from
-    dual
-connect by level <= 12;
+update pf_expenses
+set update_regular_expense_vchar = 'Y'
+where regular_expense_id is not null;
+
+commit;
+
+
+select * from PF_MONTHLY_SUM
+WHERE year = TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY'))
+AND month = TO_NUMBER(TO_CHAR(SYSDATE, 'MM'));
+
+SELECT TO_CHAR(SYSDATE, 'YYYY') FROM DUAL;
+
+
+update pf_view_monthly_sum
+set month_closed_vchar = 'N'
+where user_group_id = 1
+and monthly_sum_id = 1;
+
+
+UPDATE pf_monthly_sum
+SET month_closed = CASE 'N'
+                    WHEN 'Y' THEN TRUE
+                    ELSE FALSE
+                END
+WHERE user_group_id = 1
+AND monthly_sum_id = 1;
+
+
+commit;
+
+rollback;

@@ -1,3 +1,9 @@
+
+
+--===================================
+-- TABLES
+--===================================
+
 DROP TABLE pf_money_correction;
 DROP TABLE pf_money_allocation;
 DROP TABLE pf_currencies;
@@ -92,6 +98,7 @@ CREATE TABLE pf_regular_incomes (
   months VARCHAR2(100),
   regular_income_notes VARCHAR2(2500),
   is_active BOOLEAN DEFAULT TRUE,
+  is_active_vchar VARCHAR2(1) DEFAULT 'Y',
   user_group_id NUMBER NOT NULL,
   regular_income_id_old NUMBER,
   income_category_id_old NUMBER,
@@ -119,7 +126,8 @@ CREATE TABLE pf_regular_expenses (
   amount NUMBER(10,2) DEFAULT 0 NOT NULL,
   months VARCHAR2(100),
   regular_expense_notes VARCHAR2(2500),
-  is_ctive BOOLEAN DEFAULT TRUE,
+  is_active BOOLEAN DEFAULT TRUE,
+  is_active_vchar VARCHAR2(1) DEFAULT 'Y',
   user_group_id NUMBER NOT NULL,
   regular_expense_id_old NUMBER,
   expense_category_id_old NUMBER,
@@ -146,12 +154,13 @@ CREATE TABLE pf_monthly_sum (
   year NUMBER NOT NULL,
   month NUMBER NOT NULL,
   incomes_all NUMBER(10,2) DEFAULT 0 NOT NULL,
-  incomes_open NUMBER(10,2) DEFAULT 0 NOT NULL,
+  incomes_open NUMBER(10,2) GENERATED ALWAYS AS (incomes_all - incomes_received) VIRTUAL,
   incomes_received NUMBER(10,2) DEFAULT 0 NOT NULL,
   expenses_all NUMBER(10,2) DEFAULT 0 NOT NULL,
-  expenses_open NUMBER(10,2) DEFAULT 0 NOT NULL,
+  expenses_open NUMBER(10,2) GENERATED ALWAYS AS (expenses_all - expenses_paid) VIRTUAL,
   expenses_paid NUMBER(10,2) DEFAULT 0 NOT NULL,
   month_closed BOOLEAN DEFAULT FALSE,
+  month_closed_vchar VARCHAR2(1) DEFAULT 'N',
   user_group_id NUMBER NOT NULL,
   monthly_sum_id_old NUMBER,
   CONSTRAINT pk_monthly_sum PRIMARY KEY (user_group_id, monthly_sum_id),
@@ -172,10 +181,11 @@ CREATE TABLE pf_incomes (
   income_category_id NUMBER NOT NULL,
   income VARCHAR2(500) NOT NULL,
   amount_all NUMBER(10,2) DEFAULT 0 NOT NULL,
-  amount_open NUMBER(10,2) DEFAULT 0 NOT NULL,
+  amount_open NUMBER(10,2) GENERATED ALWAYS AS (amount_all - amount_received) VIRTUAL,
   amount_received NUMBER(10,2) DEFAULT 0 NOT NULL,
   regular_income_id NUMBER,
   update_regular_income BOOLEAN DEFAULT FALSE,
+  update_regular_income_vchar VARCHAR2(1) DEFAULT 'Y',
   incomes_notes VARCHAR2(2500),
   user_group_id NUMBER NOT NULL,
   monthly_sum_id_old NUMBER,
@@ -212,10 +222,11 @@ CREATE TABLE pf_expenses (
   expense_category_id NUMBER NOT NULL,
   expense VARCHAR2(500) NOT NULL,
   amount_all NUMBER(10,2) DEFAULT 0 NOT NULL,
-  amount_open NUMBER(10,2) DEFAULT 0 NOT NULL,
+  amount_open NUMBER(10,2) GENERATED ALWAYS AS (amount_all - amount_paid) VIRTUAL,
   amount_paid NUMBER(10,2) DEFAULT 0 NOT NULL,
   regular_expense_id NUMBER,
   update_regular_expense BOOLEAN DEFAULT FALSE,
+  update_regular_expense_vchar VARCHAR2(1) DEFAULT 'Y',
   expenses_notes VARCHAR2(2500),
   user_group_id NUMBER NOT NULL,
   monthly_sum_id_old NUMBER,
@@ -269,6 +280,7 @@ CREATE TABLE pf_money_allocation (
   currency_code VARCHAR2(3) NOT NULL,
   allocation_value NUMBER(10,2) DEFAULT 0 NOT NULL,
   is_available BOOLEAN DEFAULT FALSE,
+  is_available_vchar VARCHAR2(1) DEFAULT 'Y',
   allocation_notes VARCHAR2(2500),
   user_group_id NUMBER NOT NULL,
   CONSTRAINT pk_money_allocation PRIMARY KEY (user_group_id, allocation_id),
@@ -307,3 +319,49 @@ ALTER TABLE pf_money_correction
 ADD CONSTRAINT fk_pf_money_correction_pf_user_groups
 FOREIGN KEY (user_group_id)
 REFERENCES pf_user_groups(user_group_id);
+
+
+
+--===================================
+-- VIEWS
+--===================================
+CREATE OR REPLACE VIEW pf_view_monthly_sum AS
+SELECT user_group_id,
+        monthly_sum_id, 
+        year, 
+        month, 
+        --TO_CHAR(TO_DATE(month, 'MM'), 'Month', 'NLS_DATE_LANGUAGE = ' || SYS_CONTEXT('pf_app_context', 'app_language')) AS month_name, 
+        TO_CHAR(TO_DATE(month, 'MM'), 'Month', 'NLS_DATE_LANGUAGE = SLOVENIAN') AS month_name, 
+        incomes_all, 
+        incomes_open, 
+        incomes_received, 
+        expenses_all,
+        expenses_open, 
+        expenses_paid, 
+        (incomes_all - expenses_all) AS monthly_balance,
+        SUM(incomes_all - expenses_all) OVER (ORDER BY year, month) AS cumulative_balance,
+        month_closed,
+        month_closed_vchar
+FROM pf_monthly_sum;
+
+
+--===================================
+-- GLOBAL TEMPORARY TABLES
+--===================================
+
+CREATE GLOBAL TEMPORARY TABLE temp_pf_changes (
+  user_group_id NUMBER,
+  monthly_sum_id NUMBER
+) ON COMMIT DELETE ROWS;
+
+
+--===================================
+-- Database Contexts
+--===================================
+
+-- Context: pf_users_context
+CREATE OR REPLACE CONTEXT pf_users_context USING pf_users_pkg;
+
+
+-- Context: pf_app_context
+CREATE OR REPLACE CONTEXT pf_app_context USING pf_app_pkg;
