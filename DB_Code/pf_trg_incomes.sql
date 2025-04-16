@@ -9,21 +9,20 @@ BEGIN
         WHEN INSERTING THEN
             UPDATE pf_monthly_sum
                 SET incomes_all = incomes_all + :NEW.amount_all
-            WHERE user_group_id = :NEW.user_group_id
-            AND monthly_sum_id = :NEW.monthly_sum_id;
+            WHERE monthly_sum_id = :NEW.monthly_sum_id;
 
-        -- On update pf_incomes record - actual updates will be rocessed in statement-level trigger trg_au_stmt_pf_incomes
+        -- On update pf_incomes record - actual updates will be processed in statement-level trigger trg_au_stmt_pf_incomes
         WHEN UPDATING THEN
-            INSERT INTO temp_pf_changes (user_group_id, monthly_sum_id)
-            VALUES (:OLD.user_group_id, :OLD.monthly_sum_id);
+            NULL;
+        --     INSERT INTO temp_pf_changes (monthly_sum_id)
+        --     VALUES (:OLD.monthly_sum_id);
 
         -- On delete pf_incomes record          
         WHEN DELETING THEN
             UPDATE pf_monthly_sum
                 SET incomes_all = incomes_all - :OLD.amount_all,
                     incomes_received = incomes_received - :OLD.amount_received
-            WHERE user_group_id = :OLD.user_group_id
-            AND monthly_sum_id = :OLD.monthly_sum_id;
+            WHERE monthly_sum_id = :OLD.monthly_sum_id;
 
     END CASE;
     
@@ -41,17 +40,24 @@ END trg_aiud_row_pf_incomes;
 CREATE OR REPLACE TRIGGER trg_au_stmt_pf_incomes 
     AFTER UPDATE ON pf_incomes 
 BEGIN
-    FOR rec IN (SELECT user_group_id, monthly_sum_id FROM temp_pf_changes)
-    LOOP
-        UPDATE pf_monthly_sum ms
-            SET (incomes_all, incomes_received) =
-                (SELECT SUM(amount_all), SUM(amount_received)
-                FROM pf_incomes i
-                WHERE i.user_group_id = rec.user_group_id
-                AND i.monthly_sum_id = rec.monthly_sum_id)
-        WHERE ms.monthly_sum_id = rec.monthly_sum_id
-        AND ms.user_group_id = rec.user_group_id;
-    END LOOP;
+    -- FOR rec IN (SELECT DISTINCT monthly_sum_id FROM temp_pf_changes)
+    -- LOOP
+    --     UPDATE pf_monthly_sum ms
+    --         SET (incomes_all, incomes_received) =
+    --             (SELECT SUM(amount_all), SUM(amount_received)
+    --             FROM pf_incomes i
+    --             WHERE i.monthly_sum_id = rec.monthly_sum_id)
+    --     WHERE ms.monthly_sum_id = rec.monthly_sum_id;
+    -- END LOOP;
+
+    UPDATE pf_monthly_sum ms
+    SET (incomes_all, incomes_received) =
+        (SELECT SUM(amount_all), SUM(amount_received)
+        FROM pf_incomes i
+        WHERE ms.monthly_sum_id = i.monthly_sum_id)
+    WHERE EXISTS (SELECT 1 
+        FROM pf_incomes i 
+        WHERE ms.monthly_sum_id = i.monthly_sum_id);
 
     EXCEPTION
         WHEN OTHERS THEN

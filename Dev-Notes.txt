@@ -1,4 +1,0 @@
-To be resolved:
-[] pf_view_monthly_sum - SYS_CONTEXT doesn't work yet (change view definition and Apex functionality)
-[] user in multiple groups
-[] 

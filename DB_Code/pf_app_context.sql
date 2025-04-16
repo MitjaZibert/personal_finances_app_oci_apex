@@ -15,7 +15,6 @@ CREATE OR REPLACE PACKAGE BODY pf_app_pkg AS
     PROCEDURE set_app_language (p_language IN VARCHAR2) IS
     BEGIN
         
-        -- Set the user_group_id context with the p_user_group_id parameter
         DBMS_SESSION.SET_CONTEXT('pf_app_context', 'app_language', p_language);
     
         EXCEPTION
