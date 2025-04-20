@@ -68,3 +68,16 @@ BEGIN
 
 
 END trg_au_stmt_pf_incomes;
+/
+
+-- Row-level trigger to processes the pf_incomes  updates
+CREATE OR REPLACE TRIGGER trg_bu_row_pf_incomes
+    BEFORE UPDATE ON pf_incomes
+    FOR EACH ROW
+BEGIN
+    :NEW.amount_received := :OLD.amount_received + :NEW.amount_correction;
+    :NEW.amount_correction := 0;
+
+    
+END trg_bu_row_pf_incomes;
+/

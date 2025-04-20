@@ -14,6 +14,7 @@ DROP TABLE pf_regular_incomes;
 DROP TABLE pf_regular_expenses;
 DROP TABLE pf_income_categories;
 DROP TABLE pf_expense_categories;
+
 DROP TABLE pf_app_variables;
 DROP TABLE temp_pf_changes;
 
@@ -130,6 +131,7 @@ CREATE TABLE pf_incomes (
   amount_all NUMBER(10,2) DEFAULT 0 NOT NULL,
   amount_open NUMBER(10,2) GENERATED ALWAYS AS (amount_all - amount_received) VIRTUAL,
   amount_received NUMBER(10,2) DEFAULT 0 NOT NULL,
+  amount_correction NUMBER(10,2) DEFAULT 0,
   regular_income_id NUMBER,
   update_regular_income VARCHAR2(1) DEFAULT 'Y',
   incomes_notes VARCHAR2(2500),
@@ -165,6 +167,7 @@ CREATE TABLE pf_expenses (
   amount_all NUMBER(10,2) DEFAULT 0 NOT NULL,
   amount_open NUMBER(10,2) GENERATED ALWAYS AS (amount_all - amount_paid) VIRTUAL,
   amount_paid NUMBER(10,2) DEFAULT 0 NOT NULL,
+  amount_correction NUMBER(10,2) DEFAULT 0,
   regular_expense_id NUMBER,
   update_regular_expense VARCHAR2(1) DEFAULT 'Y',
   expenses_notes VARCHAR2(2500),

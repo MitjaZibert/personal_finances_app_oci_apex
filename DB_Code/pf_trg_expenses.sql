@@ -60,4 +60,17 @@ BEGIN
             RAISE_APPLICATION_ERROR(-20001, 'Error point: trg_au_stmt_pf_expenses');
 
 END trg_au_stmt_pf_expenses;
+/
+
+-- Row-level trigger to processes the pf_expenses  updates
+CREATE OR REPLACE TRIGGER trg_bu_row_pf_expenses
+    BEFORE UPDATE ON pf_expenses
+    FOR EACH ROW
+BEGIN
+    :NEW.amount_paid := :OLD.amount_paid + :NEW.amount_correction;
+    :NEW.amount_correction := 0;
+
+    
+END trg_bu_row_pf_expenses;
+/
 
